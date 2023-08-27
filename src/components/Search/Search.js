@@ -2,11 +2,8 @@ import React from "react";
 import Cards from "../Cards/Cards";
 import {
   Form,
-  ListGroup,
   Container,
-  Navbar,
   Image,
-  Button,
 } from "react-bootstrap";
 import Classes from "./Search.module.css";
 
@@ -21,8 +18,13 @@ function Search() {
         <div className={Classes.set_center}>
           <Form className={Classes.input_group}>
             {" "}
-            <div className={Classes.search_icon}>
-              <Image src="/search.svg" />
+            <div
+              className={Classes.search_icon}
+              onClick={() => {
+                console.log("hi");
+              }}
+            >
+              <Image src="/search.svg" className={Classes.search_icon} />
             </div>
             <Form.Control
               className={Classes.search_custom}
