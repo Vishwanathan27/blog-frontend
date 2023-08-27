@@ -1,10 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Container, Row, Col, Form, Tab, Tabs, Button } from "react-bootstrap";
 import Classes from "./Landing.module.css";
+import { BlogContext } from "@/provider/BlogProvider";
+import { useRouter } from "next/router";
 
 function Landing() {
+  const { login_details, fetchLoginDetails } = useContext(BlogContext);
   const [key, setKey] = useState("home");
-
+  const [loginDetails, setLoginDetails] = useState({
+    username: "",
+    password: "",
+  });
+  const loginHandler = () => {
+    fetchLoginDetails(loginDetails);
+  };
+  const router = useRouter();
+  useEffect(() => {
+    if (login_details.token) {
+      router.push("/home");
+    }
+  }, [login_details]);
   return (
     <Container className={Classes.landingHolder}>
       <Row className={Classes.landingContent}>
@@ -13,38 +28,6 @@ function Landing() {
             We Offer People <span>The Best Way</span>
             <br /> To Blog
           </h1>
-          <Row>
-            <Col md="4" className={Classes.landingDet}>
-              Fastest Delivery{" "}
-              <span
-                className={[
-                  Classes.lnr,
-                  Classes.lnrRocket,
-                  Classes.landingIcons,
-                ].join(" ")}
-              />
-            </Col>
-            <Col md="4" className={Classes.landingDet}>
-              Fresh Food{" "}
-              <span
-                className={[
-                  Classes.lnr,
-                  Classes.lnrLeaf,
-                  Classes.landingIcons,
-                ].join(" ")}
-              />
-            </Col>
-            <Col md="4" className={Classes.landingDet}>
-              24/7 support{" "}
-              <span
-                className={[
-                  Classes.lnr,
-                  Classes.lnrBubble,
-                  Classes.landingIcons,
-                ].join(" ")}
-              />
-            </Col>
-          </Row>
         </Col>
         <Col lg="6" md="6" xs="12">
           <Container className={Classes.landingRight}>
@@ -57,14 +40,31 @@ function Landing() {
               <Tab eventKey="home" title="Signin">
                 <Container className={Classes.landingFormHolder}>
                   <Form>
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control />
+                    <Form.Label>Username</Form.Label>
+                    <Form.Control
+                      onChange={(e) => {
+                        setLoginDetails({
+                          ...loginDetails,
+                          username: e.target.value,
+                        });
+                      }}
+                    />
                     <Form.Label className={Classes.landingDetHolder}>
                       Password
                     </Form.Label>
-                    <Form.Control />
+                    <Form.Control
+                      onChange={(e) => {
+                        setLoginDetails({
+                          ...loginDetails,
+                          password: e.target.value,
+                        });
+                      }}
+                    />
                     <div className={Classes.landingBtnHolder}>
-                      <Button className={Classes.landingSigninBtn}>
+                      <Button
+                        onClick={loginHandler}
+                        className={Classes.landingSigninBtn}
+                      >
                         Login
                       </Button>
                     </div>

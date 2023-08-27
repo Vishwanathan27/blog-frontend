@@ -1,38 +1,56 @@
-import React from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Container, Navbar, Image, Button, Row, Col } from "react-bootstrap";
 import Classes from "./Cards.module.css";
+import { useRouter } from "next/router";
+import { BlogContext } from "@/provider/BlogProvider";
 
-function Cards() {
+function Cards({ data }) {
+  const router = useRouter();
   return (
     <Container>
       <a href="#" className={Classes.float}>
         <p className={Classes.myFloat}>+</p>
       </a>
       <div className={Classes.container}>
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item, index) => {
+        {data.map((item, index) => {
           return (
             <Row key={index}>
               <Col md="4">
-                <div className={Classes.card}>
+                <div
+                  className={Classes.card}
+                  onClick={() => {
+                    router.push("/details");
+                  }}
+                >
                   <div className={Classes.cardHeader}>
                     <img
-                      src="https://c0.wallpaperflare.com/preview/483/210/436/car-green-4x4-jeep.jpg"
-                      alt="rover"
+                      src={
+                        item && item.headerImage
+                          ? item.headerImage
+                          : "/headerImage.jpg"
+                      }
+                      alt="headerImage"
                     />
                   </div>
                   <div className={Classes.cardBody}>
                     <span className={[Classes.tag, Classes.tagTeal]}>
-                      Technology
+                      {item.tags.join(" , ")}
                     </span>
-                    <h4>Why is the Tesla Cybertruck designed the way it is?</h4>
+                    <span className={Classes.desc}>{item.title}</span>
                     <div className={Classes.user}>
                       <img
-                        src="https://yt3.ggpht.com/a/AGF-l7-0J1G0Ue0mcZMw-99kMeVuBmRxiPjyvIYONg=s900-c-k-c0xffffffff-no-rj-mo"
+                        src={
+                          item && item.author.picture
+                            ? item.author.picture
+                            : "/headerImage.jpg"
+                        }
                         alt="user"
                       />
                       <div className={Classes.userInfo}>
-                        <h5>July Dec</h5>
-                        <small>2h ago</small>
+                        <h6>
+                          {item.author.firstName + " " + item.author.lastName}
+                        </h6>
+                        <small>{item.editedBefore || "2h ago"}</small>
                       </div>
                     </div>
                   </div>

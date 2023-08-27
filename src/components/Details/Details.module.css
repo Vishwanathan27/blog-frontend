@@ -1,0 +1,53 @@
+.imgStyle {
+  object-fit: cover;
+
+  border-radius: 10px;
+}
+.imgHolder {
+  margin-top: 2%;
+  height: 50%;
+  width: 50%;
+}
+.titleContainer {
+  margin-top: 2%;
+}
+.detailsHolder {
+  margin-top: 2%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.user {
+  display: flex;
+  width: 55%;
+  margin-top: 2%;
+  justify-content: space-between;
+}
+
+.user img {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+
+.userInfo h5 {
+  margin: 0;
+}
+
+.userInfo small {
+  color: #545d7a;
+}
+
+.descHolder {
+  margin-top: 2%;
+  width: 60%;
+  font-size: 18px;
+}
+
+.iconHolder {
+  width: 25px !important;
+  height: 25px !important;
+  cursor: pointer;
+}
