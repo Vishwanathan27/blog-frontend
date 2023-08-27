@@ -1,0 +1,26 @@
+.__headerLogo {
+    height: 250px;
+    width: 250px;
+    object-fit: contain;
+}
+
+.__headerHolder {
+    display: flex;
+    justify-content: space-between;
+}
+
+.__headerVndr {
+    cursor: pointer;
+    height: 70px;
+    width: 70px;
+    object-fit: contain;
+}
+
+.__headerButtons,
+.__headerButtons:hover,
+.__headerButtons:active,
+.__headerButtons:focus {
+    background: transparent;
+    color: #4c4c4c;
+    border-radius: 20px;
+}
