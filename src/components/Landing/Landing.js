@@ -28,38 +28,6 @@ function Landing() {
             We Offer People <span>The Best Way</span>
             <br /> To Blog
           </h1>
-          <Row>
-            <Col md="4" className={Classes.landingDet}>
-              Fastest Delivery{" "}
-              <span
-                className={[
-                  Classes.lnr,
-                  Classes.lnrRocket,
-                  Classes.landingIcons,
-                ].join(" ")}
-              />
-            </Col>
-            <Col md="4" className={Classes.landingDet}>
-              Fresh Food{" "}
-              <span
-                className={[
-                  Classes.lnr,
-                  Classes.lnrLeaf,
-                  Classes.landingIcons,
-                ].join(" ")}
-              />
-            </Col>
-            <Col md="4" className={Classes.landingDet}>
-              24/7 support{" "}
-              <span
-                className={[
-                  Classes.lnr,
-                  Classes.lnrBubble,
-                  Classes.landingIcons,
-                ].join(" ")}
-              />
-            </Col>
-          </Row>
         </Col>
         <Col lg="6" md="6" xs="12">
           <Container className={Classes.landingRight}>

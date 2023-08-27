@@ -24,8 +24,8 @@ const BlogProvider = ({ children }) => {
       payload: response,
     });
   };
-  const fetchAllPosts = async () => {
-    const response = await services.posts();
+  const fetchAllPosts = async (page,limit,search) => {
+    const response = await services.posts(page,limit);
     dispatch({
       type: blogType.FETCH_ALL_POSTS,
       payload: response,

@@ -24,23 +24,33 @@ function Cards({ data }) {
                 >
                   <div className={Classes.cardHeader}>
                     <img
-                      src="https://c0.wallpaperflare.com/preview/483/210/436/car-green-4x4-jeep.jpg"
-                      alt="rover"
+                      src={
+                        item && item.headerImage
+                          ? item.headerImage
+                          : "/headerImage.jpg"
+                      }
+                      alt="headerImage"
                     />
                   </div>
                   <div className={Classes.cardBody}>
                     <span className={[Classes.tag, Classes.tagTeal]}>
-                      {item.tags.join(",")}
+                      {item.tags.join(" , ")}
                     </span>
                     <span className={Classes.desc}>{item.title}</span>
                     <div className={Classes.user}>
                       <img
-                        src="https://yt3.ggpht.com/a/AGF-l7-0J1G0Ue0mcZMw-99kMeVuBmRxiPjyvIYONg=s900-c-k-c0xffffffff-no-rj-mo"
+                        src={
+                          item && item.author.picture
+                            ? item.author.picture
+                            : "/headerImage.jpg"
+                        }
                         alt="user"
                       />
                       <div className={Classes.userInfo}>
-                        <h6>July Dec</h6>
-                        <small>2h ago</small>
+                        <h6>
+                          {item.author.firstName + " " + item.author.lastName}
+                        </h6>
+                        <small>{item.editedBefore || "2h ago"}</small>
                       </div>
                     </div>
                   </div>
