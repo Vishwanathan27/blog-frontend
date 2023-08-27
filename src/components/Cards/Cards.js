@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Container, Navbar, Image, Button, Row, Col } from "react-bootstrap";
 import Classes from "./Cards.module.css";
 import { useRouter } from "next/router";
+import { BlogContext } from "@/provider/BlogProvider";
 
-function Cards() {
+function Cards({ data }) {
   const router = useRouter();
   return (
     <Container>
@@ -11,7 +12,7 @@ function Cards() {
         <p className={Classes.myFloat}>+</p>
       </a>
       <div className={Classes.container}>
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item, index) => {
+        {data.map((item, index) => {
           return (
             <Row key={index}>
               <Col md="4">
@@ -29,11 +30,9 @@ function Cards() {
                   </div>
                   <div className={Classes.cardBody}>
                     <span className={[Classes.tag, Classes.tagTeal]}>
-                      Technology
+                      {item.tags.join(",")}
                     </span>
-                    <span className={Classes.desc}>
-                      Why is the Tesla Cybertruck designed the way it is?
-                    </span>
+                    <span className={Classes.desc}>{item.title}</span>
                     <div className={Classes.user}>
                       <img
                         src="https://yt3.ggpht.com/a/AGF-l7-0J1G0Ue0mcZMw-99kMeVuBmRxiPjyvIYONg=s900-c-k-c0xffffffff-no-rj-mo"

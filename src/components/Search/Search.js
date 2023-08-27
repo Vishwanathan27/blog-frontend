@@ -7,7 +7,6 @@ import { useRouter } from "next/router";
 
 function Search() {
   const { posts, fetchAllPosts } = useContext(BlogContext);
-  console.log("posts :", posts);
   const router = useRouter();
   useEffect(() => {
     fetchAllPosts();
@@ -41,7 +40,7 @@ function Search() {
             />
           </Form>
         </div>
-        <Cards />
+        {posts.success && <Cards data={posts.data} />}
       </div>
     </Container>
   );
