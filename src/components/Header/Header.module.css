@@ -1,12 +1,12 @@
 .__headerLogo {
-    height: 250px;
-    width: 250px;
+    height: 70px;
+        width: 250px;
     object-fit: contain;
 }
 
 .__headerHolder {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between !important;
 }
 
 .__headerVndr {

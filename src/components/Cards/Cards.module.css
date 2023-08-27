@@ -78,3 +78,36 @@
 .userInfo small {
     color: #545d7a;
 }
+.float {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    bottom: 40px;
+    right: 40px;
+    background-color: #e1c3ff;
+    color: #FFF;
+    border-radius: 50px;
+    text-align: center;
+    box-shadow: 2px 2px 3px #999;
+    text-decoration: none;
+}
+
+.myFloat {
+    background-color: transparent;
+    font-size: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    color: #2e63a3;
+}
+
+.float:hover {
+    background-color: #2e63a3;
+    color: #e1c3ff;
+
+    .myFloat {
+        color: #e1c3ff;
+    }
+}
