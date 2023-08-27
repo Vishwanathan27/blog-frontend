@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Cards from "../Cards/Cards";
-import {
-  Form,
-  Container,
-  Image,
-} from "react-bootstrap";
+import { Form, Container, Image } from "react-bootstrap";
 import Classes from "./Search.module.css";
+import { BlogContext } from "@/provider/BlogProvider";
+import { useRouter } from "next/router";
 
 function Search() {
+  const { posts, fetchAllPosts } = useContext(BlogContext);
+  console.log("posts :", posts);
+  const router = useRouter();
+  useEffect(() => {
+    fetchAllPosts();
+  }, []);
+
   return (
     <Container>
       <div className={Classes.home_holder}>

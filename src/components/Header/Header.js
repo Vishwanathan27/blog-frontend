@@ -11,16 +11,6 @@ function Header() {
         <Navbar.Brand>
           <Image src="./logo.png" className={Classes.__headerLogo} />
         </Navbar.Brand>
-        <Navbar.Brand>
-          <Button
-            onClick={() => {
-              router.push("/login");
-            }}
-            className={Classes.__headerButtons}
-          >
-            Login/Signup
-          </Button>
-        </Navbar.Brand>
       </Navbar>
     </Container>
   );
