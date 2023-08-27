@@ -18,9 +18,8 @@ function Search() {
           Find the best posts{" "}
           <b className={Classes.header_colored}>as per your requirement</b>
         </div>
-        {/* <p className={Classes.sub_header}>Based on your experience </p> */}
         <div className={Classes.set_center}>
-          <Form className={`input-group ${Classes.input_group}`}>
+          <Form className={Classes.input_group}>
             {" "}
             <div className={Classes.search_icon}>
               <Image src="/search.svg" />
