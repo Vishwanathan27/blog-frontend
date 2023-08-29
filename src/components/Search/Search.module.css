@@ -36,7 +36,7 @@
 
 .search_icon {
   position: absolute;
-  left: 75%;
+  left: 85%;
   top: 50%;
   z-index: 5;
   color: #f9f9f9;
@@ -118,4 +118,22 @@
 
 .my-float {
   margin-top: 22px;
+}
+
+.filter {
+  margin-top: 2%;
+}
+.dropdownContainer {
+  position: relative;
+  margin-top: 1%;
+}
+.dropdownHolder {
+  position: absolute;
+  width: 300px;
+  height: 400px;
+  left: 65%;
+  border-radius: 20px;
+  overflow-y: scroll;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+  padding: 0 2% 2% 2%;
 }

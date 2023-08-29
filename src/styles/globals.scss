@@ -4,3 +4,87 @@
 .navbar-expand {
   justify-content: space-between !important;
 }
+.__header-buttons,
+.__header-buttons:active,
+.__header-buttons:focus {
+  background: transparent !important;
+  color: #4c4c4c !important;
+  border-radius: 20px !important;
+}
+
+.__header-buttons:hover {
+  background-color: lightgrey !important;
+}
+
+.filterContainer,
+.filterContainer:active,
+.filterContainer:focus {
+  background: transparent !important;
+  color: #4c4c4c !important;
+  border-radius: 20px !important;
+  cursor: pointer;
+  border: 1px solid #e1c3ff;
+  width: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: auto;
+  margin-top: 5%;
+  padding: 4%;
+  text-transform: capitalize;
+ 
+}
+
+.filterContainer:hover {
+  background-color: #e5cefc !important;
+}
+
+.filterOpContainer,
+.filterOpContainer:active,
+.filterOpContainer:focus {
+  background: transparent !important;
+  color: #4c4c4c !important;
+  border-radius: 20px !important;
+  cursor: pointer;
+  border: 1px solid #e1c3ff;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: auto;
+  margin-top: 5%;
+  padding: 5%;
+}
+
+.filterOpContainer:hover {
+  background-color: #e5cefc !important;
+}
+.btn-file {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-file input[type="file"] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  font-size: 100px;
+  text-align: right;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  outline: none;
+  background: white;
+  cursor: inherit;
+  display: block;
+}
+
+input[readonly] {
+  background-color: white !important;
+  cursor: text !important;
+}
+
+a {
+  text-decoration: none;
+}

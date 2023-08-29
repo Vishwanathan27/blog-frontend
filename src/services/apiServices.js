@@ -13,14 +13,8 @@ class ApiService {
     const endpoint = "/private/posts";
     return axios.post(endpoint, payload);
   }
-  posts(page = 1, limit = 9, search) {
-    const endpoint =
-      "private/posts" +
-      "?page=" +
-      page +
-      "&limit=" +
-      limit +
-      (search ? "&search=" + search : "");
+  posts(page = 1, limit = 9, search = undefined) {
+    const endpoint = "private/posts";
     return axios.get(endpoint);
   }
   getPostById(id) {
@@ -38,6 +32,14 @@ class ApiService {
   deletePost(id) {
     const endpoint = "/private/posts/" + id;
     return axios.delete(endpoint);
+  }
+  addImage(data) {
+    const endpoint = "/private/media";
+    return axios.post(endpoint, data);
+  }
+  getTags() {
+    const endpoint = "private/posts/tags";
+    return axios.get(endpoint);
   }
 }
 

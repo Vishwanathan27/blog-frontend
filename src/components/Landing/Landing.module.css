@@ -1,56 +1,71 @@
 .landingHolder {
-    margin-top: 5%;
+  margin-top: 5%;
 }
 
 .landingContent {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .landingLeft {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    margin-bottom: 10%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-bottom: 10%;
 }
 
 .landingLeft h1 {
-    color: #1f2428;
-    font-size: 64px;
+  color: #1f2428;
+  font-size: 64px;
 }
 
 .landingLeft h1 span {
-    color: #b374f8;
+  color: #b374f8;
 }
 
 .landingLeft h3 {
-    color: #1f2428;
+  color: #1f2428;
 }
 
 .landingDet {
-    display: flex;
-    justify-content: space-around;
-    font-size: 19px;
-    margin-top: 5%;
+  display: flex;
+  justify-content: space-around;
+  font-size: 19px;
+  margin-top: 5%;
 }
 
 .landingIcons {
-    width: 14px;
-    padding-top: 4%;
-    padding-left: 2%;
+  width: 14px;
+  padding-top: 4%;
+  padding-left: 2%;
 }
 
 .landingDetHolder {
-    margin-top: 2%;
+  margin-top: 2%;
 }
 
 .landingBtnHolder {
-    display: flex;
-    justify-content: flex-end;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .landingSigninBtn {
-    background: linear-gradient(135deg, rgb(42, 39, 218), rgb(0, 204, 255));
-    box-shadow: rgba(0, 77, 255, 0.5) 0px 2px 16px;
-    margin-top: 5%;
+  background: linear-gradient(135deg, rgb(42, 39, 218), rgb(0, 204, 255));
+  box-shadow: rgba(0, 77, 255, 0.5) 0px 2px 16px;
+  margin-top: 5%;
+}
+
+.errMsg {
+  color: red;
+  font-size: 15px;
+  margin-top: 2px;
+  line-height: 25px;
+}
+
+.formErr {
+  border-color: red;
+}
+
+.formNErr {
+  border-color: #dee2e6;
 }
