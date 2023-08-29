@@ -115,6 +115,7 @@ function Landing() {
       setTimeout(() => {
         router.push("/home");
       }, 1000); // 1 second delay
+      delete login_details.token;
     } else {
       setUserErr({ ...userErr, error: true, message: login_details?.error });
       setPwdErr({ ...pwdErr, error: true, message: login_details?.error });
