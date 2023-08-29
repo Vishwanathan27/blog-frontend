@@ -134,8 +134,11 @@ function Landing() {
       <Row className={Classes.landingContent}>
         <Col lg="5" md="6" xs="12" className={Classes.landingLeft}>
           <h1>
-            We Offer People <span>The Best Way</span>
-            <br /> To Blog
+            Blog The Way <br /> you{" "}
+            <span>
+              <i>Vish</i>
+            </span>
+            ...
           </h1>
         </Col>
         <Col lg="6" md="6" xs="12">
@@ -146,7 +149,7 @@ function Landing() {
               onSelect={(k) => setKey(k)}
               className="mb-3"
             >
-              <Tab eventKey="home" title="Signin">
+              <Tab eventKey="home" title="SIGN IN">
                 <Container className={Classes.landingFormHolder}>
                   <Form>
                     <Form.Label>Username</Form.Label>
@@ -200,11 +203,15 @@ function Landing() {
                   </Form>
                 </Container>
               </Tab>
-              <Tab eventKey="profile" title="Signup">
+              <Tab eventKey="profile" title="SIGN UP">
                 <Container className={Classes.landingFormHolder}>
                   <Form>
-                    <Form.Label>Username</Form.Label>
+                    <Form.Label>
+                      Username <span>*</span>
+                    </Form.Label>
                     <Form.Control
+                      required
+                      value={registerDetails.username || ""}
                       onChange={(e) => {
                         setRegisterDetails({
                           ...registerDetails,
@@ -215,8 +222,12 @@ function Landing() {
                     />
                     <p className={Classes.errMsg}>{usernameErr.message}</p>
 
-                    <Form.Label>First Name</Form.Label>
+                    <Form.Label>
+                      First Name <span>*</span>
+                    </Form.Label>
                     <Form.Control
+                      required
+                      value={registerDetails.firstName || ""}
                       onChange={(e) => {
                         setRegisterDetails({
                           ...registerDetails,
@@ -228,9 +239,11 @@ function Landing() {
                     <p className={Classes.errMsg}>{firstNameErr.message}</p>
 
                     <Form.Label className={Classes.landingDetHolder}>
-                      Last Name
+                      Last Name <span>*</span>
                     </Form.Label>
                     <Form.Control
+                      required
+                      value={registerDetails.lastName || ""}
                       onChange={(e) => {
                         setRegisterDetails({
                           ...registerDetails,
@@ -240,10 +253,14 @@ function Landing() {
                       }}
                     />
                     <p className={Classes.errMsg}>{lastNameErr.message}</p>
+
                     <Form.Label className={Classes.landingDetHolder}>
-                      Email
+                      Email <span>*</span>
                     </Form.Label>
                     <Form.Control
+                      required
+                      type="email"
+                      value={registerDetails.email || ""}
                       onChange={(e) => {
                         setRegisterDetails({
                           ...registerDetails,
@@ -253,11 +270,14 @@ function Landing() {
                       }}
                     />
                     <p className={Classes.errMsg}>{emailErr.message}</p>
+
                     <Form.Label className={Classes.landingDetHolder}>
-                      Password
+                      Password <span>*</span>
                     </Form.Label>
                     <Form.Control
+                      required
                       type="password"
+                      value={registerDetails.password || ""}
                       className={
                         passwordMismatch || passwordErr.error
                           ? Classes.formNErr
@@ -275,16 +295,16 @@ function Landing() {
                     <p className={Classes.errMsg}>{passwordErr.message}</p>
 
                     <Form.Label className={Classes.landingDetHolder}>
-                      Verify Password
+                      Verify Password <span>*</span>
                     </Form.Label>
                     <Form.Control
                       type="password"
+                      value={verifyPassword || ""}
                       className={
                         passwordMismatch || verifyPwdErr.error
                           ? Classes.formNErr
                           : ""
                       }
-                      value={verifyPassword}
                       onChange={(e) => {
                         setVerifyPassword(e.target.value);
                         setVerifyPwdErr({ error: false, message: "" });
