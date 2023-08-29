@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "sudo npm next dev -p 80",
+    "start": "sudo npm run dev -p 80",
     "lint": "next lint"
   },
   "dependencies": {
