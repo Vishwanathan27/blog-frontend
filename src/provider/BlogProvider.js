@@ -46,6 +46,14 @@ const BlogProvider = ({ children }) => {
     });
   };
 
+  const registerUser = async (payload) => {
+    const response = await services.register(payload);
+    dispatch({
+      type: blogType.REGISTER_USER,
+      payload: response,
+    });
+  };
+
   const fetchBlogDetails = async (id) => {
     const response = await services.getPostById(id);
     dispatch({
@@ -80,6 +88,7 @@ const BlogProvider = ({ children }) => {
         fetchAllPosts,
         posts,
         fetchBlogDetails,
+        registerUser,
         blog_details,
         img_data,
         uploadImage,
