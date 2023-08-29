@@ -39,7 +39,7 @@ function Landing() {
   // Registration handler function
   const [key, setKey] = useState("home");
   const registerHandler = () => {
-    setPasswordMismatch(false); // Reset this first
+    setPasswordMismatch(false);
     if (registerDetails.password !== verifyPassword) {
       setPasswordMismatch(true);
       setVerifyPwdErr({ error: true, message: "Passwords do not match" });
@@ -111,11 +111,10 @@ function Landing() {
 
   const router = useRouter();
   useEffect(() => {
-    console.log(login_details);
-    if (login_details.success) {
-      if (login_details.token) {
+    if (login_details.success && login_details.token) {
+      setTimeout(() => {
         router.push("/home");
-      }
+      }, 1000); // 1 second delay
     } else {
       setUserErr({ ...userErr, error: true, message: login_details?.error });
       setPwdErr({ ...pwdErr, error: true, message: login_details?.error });
@@ -124,11 +123,11 @@ function Landing() {
 
   useEffect(() => {
     const token = JSON.parse(sessionStorage.getItem("token"));
-    console.log(token);
     if (token !== null) {
       router.push("/home");
     }
   }, []);
+
   return (
     <Container className={Classes.landingHolder}>
       <Row className={Classes.landingContent}>
@@ -284,14 +283,40 @@ function Landing() {
                           : ""
                       }
                       onChange={(e) => {
+                        const passwordValue = e.target.value;
                         setRegisterDetails({
                           ...registerDetails,
-                          password: e.target.value,
+                          password: passwordValue,
                         });
-                        setPasswordErr({ error: false, message: "" });
-                        setPasswordMismatch(false);
+                        if (passwordValue.length < 8) {
+                          setPasswordErr({
+                            error: true,
+                            message:
+                              "Password should be more than 8 characters.",
+                          });
+                        } else if (
+                          !/[a-zA-Z]/.test(passwordValue) ||
+                          !/[0-9]/.test(passwordValue)
+                        ) {
+                          setPasswordErr({
+                            error: true,
+                            message: "Password should be alphanumeric.",
+                          });
+                        } else if (
+                          !/[!@#$%^&*(),.?":{}|<>]/.test(passwordValue)
+                        ) {
+                          setPasswordErr({
+                            error: true,
+                            message:
+                              "Password must contain at least 1 special character.",
+                          });
+                        } else {
+                          setPasswordErr({ error: false, message: "" });
+                          setPasswordMismatch(false);
+                        }
                       }}
                     />
+
                     <p className={Classes.errMsg}>{passwordErr.message}</p>
 
                     <Form.Label className={Classes.landingDetHolder}>
