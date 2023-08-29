@@ -125,7 +125,9 @@ function Landing() {
   useEffect(() => {
     const token = JSON.parse(sessionStorage.getItem("token"));
     if (token !== null) {
-      router.push("/home");
+      setTimeout(() => {
+        router.push("/home");
+      }, 1000); // 1 second delay
     }
   }, []);
 

@@ -14,13 +14,13 @@ const BlogProvider = ({ children }) => {
   const fetchLoginDetails = async (payload) => {
     try {
       const response = await services.login(payload);
-      sessionStorage.setItem("token", JSON.stringify(response.data.token));
-      sessionStorage.setItem("_uid", response.data.user._id);
       axiosInstance.interceptors.request.use((config) => {
         const token = response.data.token;
         config.headers.Authorization = token ? `Bearer ${token}` : "";
         return config;
       });
+      sessionStorage.setItem("token", JSON.stringify(response.data.token));
+      sessionStorage.setItem("_uid", response.data.user._id);
       dispatch({
         type: blogType.FETCH_LOGIN_DETAILS,
         payload: response,
