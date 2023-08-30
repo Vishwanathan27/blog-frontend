@@ -16,9 +16,7 @@ export default function App({ Component, pageProps }: AppProps) {
       sessionStorage.getItem("token") || "{}"
     );
 
-    console.log(token);
     if (token !== null) {
-      console.log("Asdfsdf");
       axiosInstance.interceptors.request.use((config: any) => {
         config.headers.Authorization = token ? `Bearer ${token}` : "";
         return config;

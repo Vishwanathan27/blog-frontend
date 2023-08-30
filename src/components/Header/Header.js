@@ -10,6 +10,7 @@ function Header() {
     sessionStorage.removeItem("token");
     router.push("/login");
   };
+
   return (
     <Container>
       <Navbar className={Classes.__headerHolder}>
@@ -17,13 +18,16 @@ function Header() {
           <Image src="./logo.png" className={Classes.__headerLogo} />
         </Navbar.Brand>
         <Navbar.Brand>
-          <Button className="__header-buttons" onClick={logoutButtonHandler}>
-            Logout
-          </Button>
+          {router.pathname !== "/" && router.pathname !== "/login" && (
+            <Button className="__header-buttons" onClick={logoutButtonHandler}>
+              Logout
+            </Button>
+          )}
         </Navbar.Brand>
       </Navbar>
     </Container>
   );
 }
+
 
 export default Header;

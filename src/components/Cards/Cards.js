@@ -30,11 +30,7 @@ function Cards({ data }) {
                 >
                   <div className={Classes.cardHeader}>
                     <img
-                      src={
-                        item && item.headerImage
-                          ? item.headerImage
-                          : "/headerImage.jpg"
-                      }
+                      src={item?.headerImageUrl || "/headerImage.jpg"}
                       alt="headerImage"
                     />
                   </div>

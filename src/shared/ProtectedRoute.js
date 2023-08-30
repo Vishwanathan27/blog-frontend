@@ -7,9 +7,7 @@ const ProtectedRoute = ({ children }) => {
   let token;
   useEffect(() => {
     token = JSON.parse(sessionStorage.getItem("token"));
-    console.log(token);
     if (token !== null) {
-      console.log("Asdfsdf");
       axiosInstance.interceptors.request.use((config) => {
         config.headers.Authorization = token ? `Bearer ${token}` : "";
         return config;
