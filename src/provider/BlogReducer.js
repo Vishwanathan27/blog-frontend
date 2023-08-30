@@ -39,6 +39,14 @@ const blogReducer = (state = INITIAL_STATE, action) => {
         tags: action.payload.data.data[0].tags,
       };
     }
+    case blogType.REGISTER_USER: {
+      return {
+        ...state,
+        tags: action.payload,
+      };
+    }
+    default:
+      return state;
   }
 };
 
