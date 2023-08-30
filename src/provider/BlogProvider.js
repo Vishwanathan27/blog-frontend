@@ -14,17 +14,7 @@ const BlogProvider = ({ children }) => {
   const fetchLoginDetails = async (payload) => {
     try {
       const response = await services.login(payload);
-      axiosInstance.interceptors.request.use((config) => {
-        const token = response.data.token;
-        config.headers.Authorization = token ? `Bearer ${token}` : "";
-        return config;
-      });
-      sessionStorage.setItem("token", JSON.stringify(response.data.token));
-      sessionStorage.setItem("_uid", response.data.user._id);
-      dispatch({
-        type: blogType.FETCH_LOGIN_DETAILS,
-        payload: response,
-      });
+      dispatchUserEntry(response);
     } catch (err) {
       console.log(err.response);
       dispatch({
@@ -33,6 +23,7 @@ const BlogProvider = ({ children }) => {
       });
     }
   };
+
   const fetchAllPosts = async (page, limit, search) => {
     try {
       const response = await services.posts(page, limit);
@@ -55,16 +46,27 @@ const BlogProvider = ({ children }) => {
 
   const registerUser = async (payload) => {
     const response = await services.register(payload);
-    dispatch({
-      type: blogType.REGISTER_USER,
-      payload: response,
-    });
+    dispatchUserEntry(response);
   };
 
   const fetchBlogDetails = async (id) => {
     const response = await services.getPostById(id);
     dispatch({
       type: blogType.FETCH_BLOG_DETAILS,
+      payload: response,
+    });
+  };
+
+  const dispatchUserEntry = (response) => {
+    axiosInstance.interceptors.request.use((config) => {
+      const token = response.data.token;
+      config.headers.Authorization = token ? `Bearer ${token}` : "";
+      return config;
+    });
+    sessionStorage.setItem("token", JSON.stringify(response.data.token));
+    sessionStorage.setItem("_uid", response.data.user._id);
+    dispatch({
+      type: blogType.FETCH_LOGIN_DETAILS,
       payload: response,
     });
   };
