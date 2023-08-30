@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Navbar, Image, Button } from "react-bootstrap";
-import Classes from "./header.module.css";
+import Classes from "./Header.module.css";
 import { useRouter } from "next/router";
 
 function Header() {
