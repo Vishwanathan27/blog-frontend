@@ -18,7 +18,7 @@ const blogReducer = (state = INITIAL_STATE, action) => {
     case blogType.FETCH_LOGIN_DETAILS:
       return {
         ...state,
-        login_details: action.payload.data,
+        login_details: action?.payload?.data,
       };
     case blogType.FETCH_BLOG_DETAILS: {
       return {
