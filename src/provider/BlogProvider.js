@@ -34,16 +34,23 @@ const BlogProvider = ({ children }) => {
     }
   };
   const fetchAllPosts = async (page, limit, search) => {
-    const response = await services.posts(page, limit);
-    const tagRes = await services.getTags();
-    dispatch({
-      type: blogType.FETCH_TAGS,
-      payload: tagRes,
-    });
-    dispatch({
-      type: blogType.FETCH_ALL_POSTS,
-      payload: response,
-    });
+    try {
+      const response = await services.posts(page, limit);
+      const tagRes = await services.getTags();
+      dispatch({
+        type: blogType.FETCH_TAGS,
+        payload: tagRes,
+      });
+      dispatch({
+        type: blogType.FETCH_ALL_POSTS,
+        payload: response,
+      });
+    } catch (err) {
+      dispatch({
+        type: blogType.FETCH_ALL_POSTS,
+        payload: err.response,
+      });
+    }
   };
 
   const registerUser = async (payload) => {

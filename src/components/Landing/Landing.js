@@ -112,9 +112,7 @@ function Landing() {
   const router = useRouter();
   useEffect(() => {
     if (login_details.success && login_details.token) {
-      setTimeout(() => {
-        router.push("/home");
-      }, 1000); // 1 second delay
+      pushToHome(login_details.token);
       delete login_details.token;
     } else {
       setUserErr({ ...userErr, error: true, message: login_details?.error });
@@ -124,12 +122,14 @@ function Landing() {
 
   useEffect(() => {
     const token = JSON.parse(sessionStorage.getItem("token"));
-    if (token !== null) {
-      setTimeout(() => {
-        router.push("/home");
-      }, 1000); // 1 second delay
+    if (token) {
+      pushToHome(token);
     }
   }, []);
+
+  const pushToHome = (token) => {
+    router.push("/home");
+  };
 
   return (
     <Container className={Classes.landingHolder}>

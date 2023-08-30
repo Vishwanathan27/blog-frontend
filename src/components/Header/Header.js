@@ -2,12 +2,16 @@ import React from "react";
 import { Container, Navbar, Image, Button } from "react-bootstrap";
 import Classes from "./Header.module.css";
 import { useRouter } from "next/router";
+import axiosInstance from "@/shared/apiConstants";
 
 function Header() {
   const router = useRouter();
 
   const logoutButtonHandler = () => {
     sessionStorage.removeItem("token");
+    if (axiosInstance.defaults.headers.common["Authorization"]) {
+      delete axiosInstance.defaults.headers.common["Authorization"];
+    }
     router.push("/login");
   };
 

@@ -8,10 +8,11 @@ import axiosInstance from "@/shared/apiConstants";
 
 function Search() {
   const { posts, fetchAllPosts, tags } = useContext(BlogContext);
-  const [dropDown, setDropDown] = useState(false);
+    const [dropDown, setDropDown] = useState(false);
   useEffect(() => {
     fetchAllPosts();
   }, []);
+
   return (
     <Container>
       <div className={Classes.home_holder}>
@@ -80,7 +81,13 @@ function Search() {
             </div>
           </div>
         )}
-        {posts.success && <Cards data={posts.data} />}
+        {!posts?.success ? (
+          <div className={Classes.loaderContainer}>
+            <div className={Classes.loader}></div>
+          </div>
+        ) : (
+          <Cards data={posts.data} />
+        )}
       </div>
     </Container>
   );
