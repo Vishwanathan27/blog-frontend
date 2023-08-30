@@ -6,7 +6,7 @@ import BlogProvider from "../provider/BlogProvider";
 import { useEffect, useState } from "react";
 import { useRouter } from "../../node_modules/next/router";
 import axiosInstance from "@/shared/apiConstants";
-import AutoLogout from "@/Shared/AutoLogout";
+import AutoLogout from "@/shared/AutoLogout";
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
