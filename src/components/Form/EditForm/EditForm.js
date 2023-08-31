@@ -143,8 +143,10 @@ function PostForm() {
               <Button
                 className={Classes.tickBox}
                 onClick={() => {
-                  setTags([...tags, tagName]);
-                  setTagName("");
+                  if (tagName.trim() !== "") {
+                    setTags([...tags, tagName]);
+                    setTagName("");
+                  }
                 }}
               >
                 <Image src="../tick.png" className={Classes.checkmark}></Image>
