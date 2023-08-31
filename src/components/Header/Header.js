@@ -21,7 +21,10 @@ function Header() {
       <Navbar className={Classes.__headerHolder}>
         <Navbar.Brand>
           <Link href="/home">
-            <Image src="./logo.png" className={Classes.__headerLogo} />
+            <Image
+              className={Classes.__headerLogo}
+              src="https://blogged.s3.amazonaws.com/logo.png"
+            />
           </Link>
         </Navbar.Brand>
         <Navbar.Brand>

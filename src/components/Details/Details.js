@@ -36,10 +36,7 @@ function Details(props) {
             </div>
             <div className={Classes.user}>
               <div>
-                <img
-                  src="https://yt3.ggpht.com/a/AGF-l7-0J1G0Ue0mcZMw-99kMeVuBmRxiPjyvIYONg=s900-c-k-c0xffffffff-no-rj-mo"
-                  alt="user"
-                />
+                <img src="./logo.png" alt="user" />
                 <div className={Classes.userInfo}>
                   <h6>{data.author.username}</h6>
                   <small>{data.timeAgo}</small>

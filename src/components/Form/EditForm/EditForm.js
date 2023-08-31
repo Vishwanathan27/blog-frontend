@@ -12,10 +12,10 @@ const Editor = dynamic(
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 function PostForm() {
   const router = useRouter();
-  const { img_data, uploadImage, blog_details, updatePost } =
+  const { img_data, uploadImage, blog_details, fetchBlogDetails, updatePost } =
     useContext(BlogContext);
-  const data = blog_details.data;
-  const [imgName, setImgName] = useState(""); 
+
+  const [imgName, setImgName] = useState("");
   const [tags, setTags] = useState([]);
   const [tagName, setTagName] = useState("");
   const [formData, setFormData] = useState({
@@ -31,13 +31,16 @@ function PostForm() {
     });
   }, [img_data]);
   useEffect(() => {
+    if (router?.query?.id && !blog_details?.data) {
+      fetchBlogDetails(router.query.id);
+    }
     setFormData({
       ...formData,
       headerImageUrl: blog_details?.data?.headerImageUrl,
       description: blog_details?.data?.content,
       title: blog_details?.data?.title,
     });
-    setTags(blog_details?.data?.tags);
+    setTags(blog_details?.data?.tags || []);
     setImgName(blog_details?.data?.imageName);
   }, [blog_details]);
 
@@ -104,7 +107,7 @@ function PostForm() {
               </span>
               <Form.Control
                 type="text"
-                class="form-control"
+                className="form-control"
                 value={imgName}
                 readOnly
                 onChange={() => {}}
@@ -144,12 +147,12 @@ function PostForm() {
                   setTagName("");
                 }}
               >
-                <Image src="./tick.png" className={Classes.checkmark}></Image>
+                <Image src="../tick.png" className={Classes.checkmark}></Image>
               </Button>
             </div>
             <div className={Classes.filter}>
               <Row className="bg-transparent">
-                {tags.length !== 0 &&
+                {tags?.length !== 0 &&
                   tags.map((item) => {
                     return (
                       <Col md="2" key={item} className="bg-transparent">

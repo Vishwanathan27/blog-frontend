@@ -32,8 +32,8 @@ export default function App({ Component, pageProps }: AppProps) {
     <>
       {valid && (
         <div className="App">
-          <AutoLogout />
           <Header />
+          <AutoLogout />
           <BlogProvider>
             <Component {...pageProps} />
           </BlogProvider>
