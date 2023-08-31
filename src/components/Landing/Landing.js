@@ -71,6 +71,9 @@ function Landing() {
       });
       hasErrors = true;
     }
+    if (emailErr.error) {
+      hasErrors = true;
+    }
     if (!registerDetails.email) {
       setEmailErr({ ...emailErr, error: true, message: "Email is required" });
       hasErrors = true;
@@ -270,11 +273,23 @@ function Landing() {
                       type="email"
                       value={registerDetails.email || ""}
                       onChange={(e) => {
+                        const emailValue = e.target.value;
                         setRegisterDetails({
                           ...registerDetails,
-                          email: e.target.value,
+                          email: emailValue,
                         });
-                        setEmailErr({ error: false, message: "" });
+                        if (
+                          !/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/i.test(
+                            emailValue
+                          )
+                        ) {
+                          setEmailErr({
+                            error: true,
+                            message: "Please enter a valid email address.",
+                          });
+                        } else {
+                          setEmailErr({ error: false, message: "" });
+                        }
                       }}
                     />
                     <p className={Classes.errMsg}>{emailErr.message}</p>
