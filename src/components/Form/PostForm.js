@@ -1,31 +1,33 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Container, Form, Button, Image, Row, Col } from "react-bootstrap";
 import Classes from "./PostForm.module.css";
-import dynamic from "next/dynamic";
 import { BlogContext } from "@/provider/BlogProvider";
 import { useRouter } from "../../../node_modules/next/router";
 
-const Editor = dynamic(
-  () => import("react-draft-wysiwyg").then((mod) => mod.Editor),
-  { ssr: false }
-);
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 function PostForm() {
   const router = useRouter();
-  const { img_data, uploadImage } = useContext(BlogContext);
-  const [imgName, setImgName] = useState("");
+  const { img_data, uploadImage, uploadBlog, upload_blog, clearImgData } =
+    useContext(BlogContext);
+  // const data = blog_details?.data;
   const [tags, setTags] = useState([]);
   const [tagName, setTagName] = useState("");
   const [formData, setFormData] = useState({
     title: "",
     image: "",
-    description: [],
+    description: "",
     imageName: "",
   });
-  console.log(formData);
+
+  useEffect(() => {
+    setFormData({
+      ...formData,
+      image: img_data.data?.fileUrl,
+    });
+  }, [img_data]);
 
   const imageHandler = (e) => {
-    setImgName(e.target.files[0].name);
+    setFormData({ ...formData, imageName: e.target.files[0].name });
     const file = e.target.files[0];
     let base64Img;
     if (file) {
@@ -38,13 +40,32 @@ function PostForm() {
       reader.readAsDataURL(file);
     }
   };
+
+  const uploadDataHandler = () => {
+    clearImgData();
+    router.push("/home");
+    const newData = {
+      content: formData.description,
+      tags: tags,
+      headerImageUrl: formData.image,
+      imageName: formData.imageName,
+      title: formData.title,
+    };
+    uploadBlog(newData);
+  };
+
   return (
     <Container>
       <div className={Classes.formContainer}>
         <div className={Classes.formHolder}>
           <p>Add Post</p>
           <Form.Label className="bg-transparent ">Title</Form.Label>
-          <Form.Control />
+          <Form.Control
+            onChange={(e) => {
+              setFormData({ ...formData, title: e.target.value });
+            }}
+            value={formData.title}
+          />
           <Form.Label className="bg-transparent mt-3">Image</Form.Label>
           <div className="input-group">
             <span className="input-group-btn">
@@ -64,25 +85,26 @@ function PostForm() {
             <Form.Control
               type="text"
               className="form-control"
-              value={imgName}
+              value={formData.imageName}
               readOnly
               onChange={() => {}}
             />
           </div>
+          {formData?.image?.length !== 0 && (
+            <Image src={formData.image} className="mt-4 w-25 h-25" />
+          )}
+          <br />
           <Form.Label className="bg-transparent mt-3">Description</Form.Label>
           <div className="form-group">
-            <Editor
-              toolbarClassName="toolbarClassName"
-              wrapperClassName="wrapperClassName"
-              editorClassName="editorClassName"
-              toolbar={{
-                options: ["inline", "list", "textAlign", "link"],
-                inline: { inDropdown: false },
-                list: { inDropdown: false },
-                textAlign: { inDropdown: false },
-              }}
+            <textarea
+              cols={30}
+              rows={10}
+              className="form-control"
               onChange={(e) => {
-                setFormData({ ...formData, description: e.blocks });
+                setFormData({
+                  ...formData,
+                  description: e.target.value,
+                });
               }}
             />
           </div>
@@ -117,7 +139,13 @@ function PostForm() {
             </Row>
           </div>
           <div className="d-flex bg-transparent justify-content-end mt-3">
-            <Button>Publish</Button>
+            <Button
+              onClick={() => {
+                uploadDataHandler();
+              }}
+            >
+              Publish
+            </Button>
           </div>
         </div>
       </div>

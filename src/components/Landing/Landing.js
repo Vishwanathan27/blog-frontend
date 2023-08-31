@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import axiosInstance from "@/shared/apiConstants";
 
 function Landing() {
-  const { login_details, fetchLoginDetails, registerUser } =
+  const { login_details, fetchLoginDetails, registerUser, registered_user } =
     useContext(BlogContext);
   const [userErr, setUserErr] = useState({ error: false, message: "" });
   const [pwdErr, setPwdErr] = useState({ error: false, message: "" });
@@ -29,7 +29,7 @@ function Landing() {
   });
   const [verifyPassword, setVerifyPassword] = useState("");
   const [passwordMismatch, setPasswordMismatch] = useState(false);
-  
+
   const [registerDetails, setRegisterDetails] = useState({
     firstName: "",
     lastName: "",
@@ -122,6 +122,19 @@ function Landing() {
       setPwdErr({ ...pwdErr, error: true, message: login_details?.error });
     }
   }, [login_details]);
+
+  console.log(registered_user)
+  useEffect(() => {
+    if (registered_user.success) {
+      setKey("home");
+    } else {
+      setUsernameErr({
+        ...usernameErr,
+        error: true,
+        message: registered_user?.message,
+      });
+    }
+  }, [registered_user]);
 
   useEffect(() => {
     const token = JSON.parse(sessionStorage.getItem("token"));

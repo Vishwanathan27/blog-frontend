@@ -10,11 +10,26 @@ export const BlogContext = createContext({
 });
 const BlogProvider = ({ children }) => {
   const [state, dispatch] = useReducer(blogReducer, INITIAL_STATE);
-  const { login_details, posts, blog_details, img_data, tags } = state;
+  const {
+    login_details,
+    posts,
+    blog_details,
+    img_data,
+    tags,
+    registered_user,
+    upload_blog,
+    delete_blog,
+    updated_posts,
+  } = state;
   const fetchLoginDetails = async (payload) => {
     try {
       const response = await services.login(payload);
       dispatchUserEntry(response);
+      console.log(response);
+      dispatch({
+        type: blogType.FETCH_LOGIN_DETAILS,
+        payload: response,
+      });
     } catch (err) {
       console.log(err.response);
       dispatch({
@@ -45,8 +60,18 @@ const BlogProvider = ({ children }) => {
   };
 
   const registerUser = async (payload) => {
-    const response = await services.register(payload);
-    dispatchUserEntry(response);
+    try {
+      const response = await services.register(payload);
+      dispatch({
+        type: blogType.REGISTER_USER,
+        payload: response,
+      });
+    } catch (err) {
+      dispatch({
+        type: blogType.REGISTER_USER,
+        payload: err.response,
+      });
+    }
   };
 
   const fetchBlogDetails = async (id) => {
@@ -72,21 +97,88 @@ const BlogProvider = ({ children }) => {
   };
 
   const uploadImage = async (base64, type, name) => {
-    const imgData = {
-      destination: sessionStorage.getItem("_uid"),
-      sourcefile: {
-        content: base64,
-        contentType: type,
-        filename: name,
-      },
+    try {
+      const imgData = {
+        destination: sessionStorage.getItem("_uid"),
+        sourcefile: {
+          content: base64,
+          contentType: type,
+          filename: name,
+        },
+      };
+      // console.log(imgData);
+      const response = await services.addImage(imgData);
+      console.log(response);
+      dispatch({
+        type: blogType.UPLOAD_IMAGE,
+        payload: response,
+      });
+    } catch (err) {
+      dispatch({
+        type: blogType.UPLOAD_IMAGE,
+        payload: err.response,
+      });
+    }
+  };
+  const uploadBlog = async (userData) => {
+    try {
+      let newData = {
+        author: sessionStorage.getItem("_uid"),
+        ...userData,
+      };
+      const response = await services.createPost(newData);
+      dispatch({
+        type: blogType.UPLOAD_BLOG,
+        payload: response,
+      });
+    } catch (err) {
+      dispatch({
+        type: blogType.UPLOAD_BLOG,
+        payload: err.response,
+      });
+    }
+  };
+  const deleteBlog = async (id) => {
+    try {
+      const response = await services.deletePost(id);
+      dispatch({
+        type: blogType.DELETE_BLOG,
+        payload: response,
+      });
+    } catch (err) {
+      dispatch({
+        type: blogType.DELETE_BLOG,
+        payload: err.response,
+      });
+    }
+  };
+  const clearImgData = () => {
+    let data = {
+      data: [],
     };
-    // console.log(imgData);
-    const response = await services.addImage(imgData);
-    console.log(response);
     dispatch({
       type: blogType.UPLOAD_IMAGE,
-      payload: response,
+      payload: data,
     });
+  };
+  const updatePost = async (id, data) => {
+    try {
+      let newData = {
+        author: sessionStorage.getItem("_uid"),
+        ...data,
+      };
+      const response = await services.updatePost(id, newData);
+
+      dispatch({
+        type: blogType.UPLOAD_BLOG,
+        payload: response,
+      });
+    } catch (err) {
+      dispatch({
+        type: blogType.UPLOAD_BLOG,
+        payload: err.response,
+      });
+    }
   };
   return (
     <BlogContext.Provider
@@ -102,6 +194,14 @@ const BlogProvider = ({ children }) => {
         img_data,
         uploadImage,
         tags,
+        registered_user,
+        uploadBlog,
+        upload_blog,
+        delete_blog,
+        deleteBlog,
+        clearImgData,
+        updated_posts,
+        updatePost,
       }}
     >
       {children}

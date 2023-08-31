@@ -3,16 +3,29 @@ import { Container, Navbar, Image, Button, Row, Col } from "react-bootstrap";
 import Classes from "./Details.module.css";
 import { useRouter } from "../../../node_modules/next/router";
 import { BlogContext } from "@/provider/BlogProvider";
+import { AiFillEdit, AiFillDelete } from "react-icons/Ai";
 
 function Details(props) {
   const router = useRouter();
-  const { blog_details, fetchBlogDetails } = useContext(BlogContext);
+  const {
+    blog_details,
+    fetchBlogDetails,
+    deleteBlog,
+    delete_blog,
+    clearDelete,
+  } = useContext(BlogContext);
   const data = blog_details?.data;
   useEffect(() => {
     if (router?.query?.id) {
       fetchBlogDetails(router.query.id);
     }
   }, [router.query.id]);
+
+  const deleteBlogHandler = () => {
+    deleteBlog(data._id);
+    router.push("/home");
+  };
+
   return (
     <>
       {data && (
@@ -29,25 +42,27 @@ function Details(props) {
                 />
                 <div className={Classes.userInfo}>
                   <h6>{data.author.username}</h6>
-                  <small>2h ago</small>
+                  <small>{data.timeAgo}</small>
                 </div>
               </div>
               <div>
-                <Image
-                  src="./edit.png"
-                  className={Classes.iconHolder}
-                  onPress={() => {}}
+                <AiFillEdit
+                  size={24}
+                  onClick={() => {
+                    router.push(`/form/${router?.query?.id}`);
+                  }}
                 />
-                <Image
-                  src="./delte.png"
-                  className={Classes.iconHolder}
-                  onPress={() => {}}
+                <AiFillDelete
+                  size={24}
+                  onClick={() => {
+                    deleteBlogHandler();
+                  }}
                 />
               </div>
             </div>
             <div className={Classes.imgHolder}>
               <Image
-                src="https://c0.wallpaperflare.com/preview/483/210/436/car-green-4x4-jeep.jpg"
+                src={data.headerImageUrl}
                 fluid
                 className={Classes.imgStyle}
               />

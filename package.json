@@ -24,6 +24,7 @@
     "react-bootstrap": "^2.8.0",
     "react-dom": "18.2.0",
     "react-draft-wysiwyg": "^1.15.0",
+    "react-icons": "^4.10.1",
     "react-spinners": "^0.13.8",
     "sass": "^1.66.1",
     "typescript": "5.2.2"

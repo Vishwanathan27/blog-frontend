@@ -7,6 +7,10 @@
   margin-top: 2%;
   height: 50%;
   width: 50%;
+  justify-content: center;
+  display: flex;
+  object-fit: contain;
+  align-items: center;
 }
 .titleContainer {
   margin-top: 2%;
@@ -44,6 +48,8 @@
   margin-top: 2%;
   width: 60%;
   font-size: 18px;
+  display: flex;
+  justify-content: center;
 }
 
 .iconHolder {

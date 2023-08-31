@@ -6,6 +6,10 @@ export const INITIAL_STATE = {
   blog_details: {},
   img_data: {},
   tags: [],
+  registered_user: {},
+  upload_blog: {},
+  delete_blog: {},
+  updated_posts: {},
 };
 
 const blogReducer = (state = INITIAL_STATE, action) => {
@@ -42,7 +46,25 @@ const blogReducer = (state = INITIAL_STATE, action) => {
     case blogType.REGISTER_USER: {
       return {
         ...state,
-        tags: action.payload,
+        registered_user: action.payload.data,
+      };
+    }
+    case blogType.UPLOAD_BLOG: {
+      return {
+        ...state,
+        upload_blog: action.payload.data,
+      };
+    }
+    case blogType.DELETE_BLOG: {
+      return {
+        ...state,
+        delete_blog: action.payload.data,
+      };
+    }
+    case blogType.UPDATE_POSTS: {
+      return {
+        ...state,
+        updated_posts: action.payload.data,
       };
     }
     default:

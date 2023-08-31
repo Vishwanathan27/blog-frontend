@@ -1,0 +1,53 @@
+.formContainer {
+    margin-top: 5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70%;
+    background-color: #f1e5fb;
+    margin-left: 15%;
+    padding: 5%;
+    border-radius: 25px;
+    margin-bottom: 5%;
+  }
+  .formHolder {
+    margin-bottom: 5%;
+    position: relative;
+    width: 70%;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+  }
+  
+  .formContainer p {
+    font-size: 20px;
+    font-weight: 500;
+    background-color: transparent;
+  }
+  
+  .tagsHandler {
+    position: relative;
+  }
+  
+  .tickBox {
+    position: absolute;
+    top: 2%;
+    display: flex;
+    left: 93.5%;
+    width: 35px;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+  .checkmark {
+    /* transform: rotate(45deg); */
+    height: 25px;
+    width: 25px;
+    background-color: transparent;
+  }
+  
+  .filter {
+    margin-top: 2%;
+    background-color: transparent;
+  }
+  
