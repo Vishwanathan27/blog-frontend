@@ -4,8 +4,13 @@ import Classes from "./Details.module.css";
 import { useRouter } from "../../../node_modules/next/router";
 import { BlogContext } from "@/provider/BlogProvider";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
+import ReactModal from "react-modal";
+
+ReactModal.setAppElement("#__next");
 
 function Details(props) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const router = useRouter();
   const {
     blog_details,
@@ -23,6 +28,7 @@ function Details(props) {
 
   const deleteBlogHandler = () => {
     deleteBlog(data._id);
+    setIsModalOpen(false);
     router.push("/home");
   };
 
@@ -55,7 +61,7 @@ function Details(props) {
                 <AiFillDelete
                   size={24}
                   onClick={() => {
-                    deleteBlogHandler();
+                    setIsModalOpen(true);
                   }}
                 />
               </div>
@@ -73,6 +79,19 @@ function Details(props) {
           </div>
         </Container>
       )}
+      <ReactModal
+        isOpen={isModalOpen}
+        onRequestClose={() => setIsModalOpen(false)}
+        className={Classes.modalContent}
+        overlayClassName={Classes.modalOverlay}
+      >
+        <h2>Are you sure?</h2>
+        <p>Do you really want to delete this blog post?</p>
+        <button className={Classes.buttonMargin} onClick={deleteBlogHandler}>
+          Delete
+        </button>
+        <button onClick={() => setIsModalOpen(false)}>Cancel</button>
+      </ReactModal>
     </>
   );
 }
