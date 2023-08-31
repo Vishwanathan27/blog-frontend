@@ -1,12 +1,14 @@
 .imgStyle {
   object-fit: cover;
-
+  width: 100%;
+    object-position: center;
   border-radius: 10px;
 }
 .imgHolder {
   margin-top: 2%;
-  height: 50%;
-  width: 50%;
+  overflow: hidden;
+    height: 300px;
+    width: 70%;
   justify-content: center;
   display: flex;
   object-fit: contain;
