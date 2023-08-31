@@ -63,7 +63,7 @@ function PostForm() {
             </span>
             <Form.Control
               type="text"
-              class="form-control"
+              className="form-control"
               value={imgName}
               readOnly
               onChange={() => {}}
