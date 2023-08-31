@@ -10,16 +10,16 @@ function Search() {
   const { posts, fetchAllPosts, tags } = useContext(BlogContext);
   const [dropDown, setDropDown] = useState(false);
   useEffect(() => {
-    const token = JSON.parse(sessionStorage.getItem("token") || "{}");
-
+    const token = sessionStorage.getItem("token");
     if (token !== null) {
       axiosInstance.interceptors.request.use((config) => {
-        config.headers.Authorization = token ? `Bearer ${token}` : "";
+        config.headers.Authorization = token
+          ? `Bearer ${JSON.parse(token)}`
+          : "";
         return config;
       });
 
       fetchAllPosts();
-      
     } else {
       router.push("/login");
     }

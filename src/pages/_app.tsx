@@ -12,13 +12,11 @@ export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
   const [valid, setValid] = useState(false);
   useEffect(() => {
-    const token: string | null = JSON.parse(
-      sessionStorage.getItem("token") || "{}"
-    );
+    const token: string | null = sessionStorage.getItem("token")
 
-    if (token !== null) {
+    if (token !== null ) {
       axiosInstance.interceptors.request.use((config: any) => {
-        config.headers.Authorization = token ? `Bearer ${token}` : "";
+        config.headers.Authorization = token ? `Bearer ${JSON.parse(token)}` : "";
         return config;
       });
     } else {
