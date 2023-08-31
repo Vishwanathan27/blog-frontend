@@ -3,6 +3,7 @@ import { Container, Navbar, Image, Button } from "react-bootstrap";
 import Classes from "./Header.module.css";
 import { useRouter } from "next/router";
 import axiosInstance from "@/shared/apiConstants";
+import Link from "next/link";
 
 function Header() {
   const router = useRouter();
@@ -19,7 +20,9 @@ function Header() {
     <Container>
       <Navbar className={Classes.__headerHolder}>
         <Navbar.Brand>
-          <Image src="./logo.png" className={Classes.__headerLogo} />
+          <Link href="/home">
+            <Image src="./logo.png" className={Classes.__headerLogo} />
+          </Link>
         </Navbar.Brand>
         <Navbar.Brand>
           {router.pathname !== "/" && router.pathname !== "/login" && (
@@ -32,6 +35,5 @@ function Header() {
     </Container>
   );
 }
-
 
 export default Header;
