@@ -153,7 +153,12 @@ function Landing() {
             >
               <Tab eventKey="home" title="SIGN IN">
                 <Container className={Classes.landingFormHolder}>
-                  <Form>
+                  <Form
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      loginHandler();
+                    }}
+                  >
                     <Form.Label>Username</Form.Label>
                     <Form.Control
                       className={
@@ -196,6 +201,7 @@ function Landing() {
                     <p className={Classes.errMsg}>{pwdErr.message}</p>
                     <div className={Classes.landingBtnHolder}>
                       <Button
+                        type="submit"
                         onClick={loginHandler}
                         className={Classes.landingSigninBtn}
                       >
