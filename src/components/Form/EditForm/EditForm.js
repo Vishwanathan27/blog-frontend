@@ -20,27 +20,26 @@ function PostForm() {
   const [tagName, setTagName] = useState("");
   const [formData, setFormData] = useState({
     title: "",
-    image: "",
+    headerImageUrl: "",
     description: [],
     imageName: "",
   });
   useEffect(() => {
     setFormData({
       ...formData,
-      image: img_data.data?.fileUrl,
+      headerImageUrl: img_data?.Location,
     });
   }, [img_data]);
   useEffect(() => {
     setFormData({
       ...formData,
-      image: blog_details?.data?.headerImageUrl,
+      headerImageUrl: blog_details?.data?.headerImageUrl,
       description: blog_details?.data?.content,
       title: blog_details?.data?.title,
     });
     setTags(blog_details?.data?.tags);
     setImgName(blog_details?.data?.imageName);
   }, [blog_details]);
-
 
   const imageHandler = (e) => {
     setImgName(e.target.files[0].name);
@@ -56,7 +55,7 @@ function PostForm() {
       reader.readAsDataURL(file);
       setFormData({
         ...formData,
-        image: img_data.data?.fileUrl,
+        headerImageUrl: img_data?.Location,
       });
     }
   };
@@ -65,7 +64,7 @@ function PostForm() {
     const newData = {
       content: formData.description,
       tags: tags,
-      headerImageUrl: formData.image,
+      headerImageUrl: formData.headerImageUrl,
       imageName: formData.imageName,
       title: formData.title,
     };
@@ -99,7 +98,7 @@ function PostForm() {
                     onChange={(e) => {
                       imageHandler(e);
                     }}
-                    accept="image"
+                    accept="headerImageUrl"
                   />
                 </span>
               </span>
@@ -111,11 +110,11 @@ function PostForm() {
                 onChange={() => {}}
               />
             </div>
-            {formData.image?.length !== 0 && (
-              <Image src={formData.image} className="mt-4 w-25 h-25" />
+            {formData.headerImageUrl?.length !== 0 && (
+              <Image src={formData.headerImageUrl} className="mt-4 w-25 h-25" />
             )}
             <br />
-            <Form.Label className="bg-transparent mt-3">Description</Form.Label>
+            <Form.Label className="bg-transparent mt-3">Content</Form.Label>
             <div className="form-group">
               <textarea
                 cols={30}

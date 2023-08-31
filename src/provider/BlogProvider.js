@@ -3,8 +3,21 @@ import blogReducer, { INITIAL_STATE } from "./BlogReducer";
 import blogType from "./BlogType";
 import ApiServices from "../services/apiServices";
 import axiosInstance from "@/shared/apiConstants";
+import config from "@/shared/config";
 import { useRouter } from "next/router";
 import { useEffect, useRef } from "react";
+import AWS from "aws-sdk";
+
+const AWS_ACCESS_KEY = config.REACT_APP_AWS_ACCESS_KEY;
+const AWS_SECRET_KEY = config.REACT_APP_AWS_SECRET_KEY;
+const AWS_REGION = config.REACT_APP_AWS_REGION;
+const S3_BUCKET_NAME = config.REACT_APP_S3_BUCKET_NAME;
+
+AWS.config.update({
+  accessKeyId: AWS_ACCESS_KEY,
+  secretAccessKey: AWS_SECRET_KEY,
+  region: AWS_REGION,
+});
 
 const services = new ApiServices();
 export const BlogContext = createContext({
@@ -140,30 +153,39 @@ const BlogProvider = ({ children }) => {
 
   const uploadImage = async (base64, type, name) => {
     try {
-      const imgData = {
-        destination: sessionStorage.getItem("_uid"),
-        sourcefile: {
-          content: base64,
-          contentType: type,
-          filename: name,
-        },
-      };
+      const buffer = Buffer.from(
+        base64.replace(/^data:image\/\w+;base64,/, ""),
+        "base64"
+      );
+      const path = `${sessionStorage.getItem("_uid")}/${name}`;
 
-      const response = await services.addImage(imgData);
+      const response = await uploadToS3(S3_BUCKET_NAME, path, buffer, type);
 
       dispatch({
         type: blogType.UPLOAD_IMAGE,
         payload: response,
       });
     } catch (err) {
-      console.log(err.response, "err in upload image");
-      handleApiResponse(err.response);
+      console.log(err, "err in upload image to S3");
       dispatch({
         type: blogType.UPLOAD_IMAGE,
-        payload: err.response,
+        payload: err,
       });
     }
   };
+
+  const uploadToS3 = async (bucket, path, buffer, contentType) => {
+    const s3bucket = new AWS.S3({ params: { Bucket: bucket } });
+    const uploadParams = {
+      Bucket: bucket,
+      Key: path,
+      Body: buffer,
+      ContentType: contentType,
+    };
+
+    return s3bucket.upload(uploadParams).promise();
+  };
+
   const uploadBlog = async (userData) => {
     try {
       let newData = {

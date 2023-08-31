@@ -33,7 +33,7 @@ const blogReducer = (state = INITIAL_STATE, action) => {
     case blogType.UPLOAD_IMAGE: {
       return {
         ...state,
-        img_data: action.payload?.data,
+        img_data: action.payload,
       };
     }
 

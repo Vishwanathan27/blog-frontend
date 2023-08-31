@@ -14,7 +14,7 @@ function PostForm() {
   const [tagName, setTagName] = useState("");
   const [formData, setFormData] = useState({
     title: "",
-    image: "",
+    headerImageUrl: "",
     description: "",
     imageName: "",
   });
@@ -22,7 +22,7 @@ function PostForm() {
   useEffect(() => {
     setFormData({
       ...formData,
-      image: img_data.data?.fileUrl,
+      headerImageUrl: img_data?.Location,
     });
   }, [img_data]);
 
@@ -47,7 +47,7 @@ function PostForm() {
     const newData = {
       content: formData.description,
       tags: tags,
-      headerImageUrl: formData.image,
+      headerImageUrl: formData.headerImageUrl,
       imageName: formData.imageName,
       title: formData.title,
     };
@@ -78,7 +78,7 @@ function PostForm() {
                   onChange={(e) => {
                     imageHandler(e);
                   }}
-                  accept="image"
+                  accept="headerImageUrl"
                 />
               </span>
             </span>
@@ -90,11 +90,11 @@ function PostForm() {
               onChange={() => {}}
             />
           </div>
-          {formData?.image?.length !== 0 && (
-            <Image src={formData.image} className="mt-4 w-25 h-25" />
+          {formData?.headerImageUrl?.length !== 0 && (
+            <Image src={formData.headerImageUrl} className="mt-4 w-25 h-25" />
           )}
           <br />
-          <Form.Label className="bg-transparent mt-3">Description</Form.Label>
+          <Form.Label className="bg-transparent mt-3">Content</Form.Label>
           <div className="form-group">
             <textarea
               cols={30}
