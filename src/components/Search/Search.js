@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import axiosInstance from "@/shared/apiConstants";
 
 function Search() {
+  const router = useRouter();
   const { posts, fetchAllPosts, tags } = useContext(BlogContext);
   const [dropDown, setDropDown] = useState(false);
   useEffect(() => {
