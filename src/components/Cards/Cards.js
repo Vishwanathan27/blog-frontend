@@ -69,7 +69,7 @@ function Cards({ data }) {
                         <h6>
                           {item.author.firstName + " " + item.author.lastName}
                         </h6>
-                        <small>{item.editedBefore || "2h ago"}</small>
+                        <small>{item.timeAgo || ""}</small>   
                       </div>
                     </div>
                   </div>

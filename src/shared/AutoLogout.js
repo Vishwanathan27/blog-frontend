@@ -16,7 +16,7 @@ const AutoLogout = () => {
     if (logoutTimer) {
       clearTimeout(logoutTimer);
     }
-    const newLogoutTimer = setTimeout(logout, 60* 60 * 1000); // 2 minutes in milliseconds
+    const newLogoutTimer = setTimeout(logout, 60* 60 * 1000);
     setLogoutTimer(newLogoutTimer);
   };
 

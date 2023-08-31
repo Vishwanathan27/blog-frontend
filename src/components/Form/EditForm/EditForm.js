@@ -12,17 +12,10 @@ const Editor = dynamic(
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 function PostForm() {
   const router = useRouter();
-  const {
-    img_data,
-    uploadImage,
-    uploadBlog,
-    upload_blog,
-    blog_details,
-    updated_posts,
-    updatePost,
-  } = useContext(BlogContext);
+  const { img_data, uploadImage, blog_details, updatePost } =
+    useContext(BlogContext);
   const data = blog_details.data;
-  const [imgName, setImgName] = useState("");
+  const [imgName, setImgName] = useState(""); 
   const [tags, setTags] = useState([]);
   const [tagName, setTagName] = useState("");
   const [formData, setFormData] = useState({
@@ -44,11 +37,11 @@ function PostForm() {
       description: blog_details?.data?.content,
       title: blog_details?.data?.title,
     });
-    setTags(blog_details.data.tags);
-    setImgName(blog_details.data.imageName);
+    setTags(blog_details?.data?.tags);
+    setImgName(blog_details?.data?.imageName);
   }, [blog_details]);
 
-  console.log(data);
+
   const imageHandler = (e) => {
     setImgName(e.target.files[0].name);
     const file = e.target.files[0];

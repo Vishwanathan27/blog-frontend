@@ -3,12 +3,31 @@ import blogReducer, { INITIAL_STATE } from "./BlogReducer";
 import blogType from "./BlogType";
 import ApiServices from "../services/apiServices";
 import axiosInstance from "@/shared/apiConstants";
+import { useRouter } from "next/router";
 
 const services = new ApiServices();
 export const BlogContext = createContext({
   ...INITIAL_STATE,
 });
+
 const BlogProvider = ({ children }) => {
+  const router = useRouter();
+  const handleApiResponse = (response) => {
+    if (
+      response &&
+      response.success === false &&
+      response.message === "Invalid token"
+    ) {
+      logoutUser();
+    }
+  };
+  const logoutUser = () => {
+    sessionStorage.removeItem("token");
+    if (axiosInstance.defaults.headers.common["Authorization"]) {
+      delete axiosInstance.defaults.headers.common["Authorization"];
+    }
+    router.push("/login");
+  };
   const [state, dispatch] = useReducer(blogReducer, INITIAL_STATE);
   const {
     login_details,
@@ -25,7 +44,6 @@ const BlogProvider = ({ children }) => {
     try {
       const response = await services.login(payload);
       dispatchUserEntry(response);
-      console.log(response);
       dispatch({
         type: blogType.FETCH_LOGIN_DETAILS,
         payload: response,
@@ -52,6 +70,7 @@ const BlogProvider = ({ children }) => {
         payload: response,
       });
     } catch (err) {
+      handleApiResponse(err.response);
       dispatch({
         type: blogType.FETCH_ALL_POSTS,
         payload: err.response,
@@ -75,11 +94,19 @@ const BlogProvider = ({ children }) => {
   };
 
   const fetchBlogDetails = async (id) => {
-    const response = await services.getPostById(id);
-    dispatch({
-      type: blogType.FETCH_BLOG_DETAILS,
-      payload: response,
-    });
+    try {
+      const response = await services.getPostById(id);
+      dispatch({
+        type: blogType.FETCH_BLOG_DETAILS,
+        payload: response,
+      });
+    } catch (err) {
+      handleApiResponse(err.response);
+      dispatch({
+        type: blogType.FETCH_BLOG_DETAILS,
+        payload: err.response,
+      });
+    }
   };
 
   const dispatchUserEntry = (response) => {
@@ -106,14 +133,15 @@ const BlogProvider = ({ children }) => {
           filename: name,
         },
       };
-      // console.log(imgData);
+
       const response = await services.addImage(imgData);
-      console.log(response);
+
       dispatch({
         type: blogType.UPLOAD_IMAGE,
         payload: response,
       });
     } catch (err) {
+      handleApiResponse(err.response);
       dispatch({
         type: blogType.UPLOAD_IMAGE,
         payload: err.response,
@@ -132,6 +160,7 @@ const BlogProvider = ({ children }) => {
         payload: response,
       });
     } catch (err) {
+      handleApiResponse(err.response);
       dispatch({
         type: blogType.UPLOAD_BLOG,
         payload: err.response,
@@ -146,6 +175,7 @@ const BlogProvider = ({ children }) => {
         payload: response,
       });
     } catch (err) {
+      handleApiResponse(err.response);
       dispatch({
         type: blogType.DELETE_BLOG,
         payload: err.response,
@@ -174,6 +204,7 @@ const BlogProvider = ({ children }) => {
         payload: response,
       });
     } catch (err) {
+      handleApiResponse(err.response);
       dispatch({
         type: blogType.UPLOAD_BLOG,
         payload: err.response,

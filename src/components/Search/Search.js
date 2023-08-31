@@ -17,7 +17,9 @@ function Search() {
         config.headers.Authorization = token ? `Bearer ${token}` : "";
         return config;
       });
+
       fetchAllPosts();
+      
     } else {
       router.push("/login");
     }

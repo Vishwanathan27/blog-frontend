@@ -17,7 +17,7 @@ const blogReducer = (state = INITIAL_STATE, action) => {
     case blogType.FETCH_ALL_POSTS:
       return {
         ...state,
-        posts: action.payload.data,
+        posts: action.payload?.data,
       };
     case blogType.FETCH_LOGIN_DETAILS:
       return {
@@ -27,44 +27,44 @@ const blogReducer = (state = INITIAL_STATE, action) => {
     case blogType.FETCH_BLOG_DETAILS: {
       return {
         ...state,
-        blog_details: action.payload.data,
+        blog_details: action.payload?.data,
       };
     }
     case blogType.UPLOAD_IMAGE: {
       return {
         ...state,
-        img_data: action.payload.data,
+        img_data: action.payload?.data,
       };
     }
 
     case blogType.FETCH_TAGS: {
       return {
         ...state,
-        tags: action.payload.data.data[0].tags,
+        tags: action.payload?.data?.data[0].tags,
       };
     }
     case blogType.REGISTER_USER: {
       return {
         ...state,
-        registered_user: action.payload.data,
+        registered_user: action.payload?.data,
       };
     }
     case blogType.UPLOAD_BLOG: {
       return {
         ...state,
-        upload_blog: action.payload.data,
+        upload_blog: action.payload?.data,
       };
     }
     case blogType.DELETE_BLOG: {
       return {
         ...state,
-        delete_blog: action.payload.data,
+        delete_blog: action.payload?.data,
       };
     }
     case blogType.UPDATE_POSTS: {
       return {
         ...state,
-        updated_posts: action.payload.data,
+        updated_posts: action.payload?.data,
       };
     }
     default:
