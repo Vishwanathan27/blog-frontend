@@ -3,7 +3,7 @@ import { Container, Navbar, Image, Button, Row, Col } from "react-bootstrap";
 import Classes from "./Details.module.css";
 import { useRouter } from "../../../node_modules/next/router";
 import { BlogContext } from "@/provider/BlogProvider";
-import { AiFillEdit, AiFillDelete } from "react-icons/Ai";
+import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 
 function Details(props) {
   const router = useRouter();
