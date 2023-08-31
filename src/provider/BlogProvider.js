@@ -13,12 +13,15 @@ export const BlogContext = createContext({
 const BlogProvider = ({ children }) => {
   const router = useRouter();
   const handleApiResponse = (response) => {
+    console.log(response);
     if (
-      response &&
-      response.success === false &&
-      response.message === "Invalid token"
+      response?.data &&
+      response?.data.success === false &&
+      response?.data.message === "Invalid token"
     ) {
-      logoutUser();
+      setTimeout(() => {
+        logoutUser();
+      }, 2000);
     }
   };
   const logoutUser = () => {
