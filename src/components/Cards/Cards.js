@@ -38,7 +38,6 @@ function Cards({ data }) {
                     {/* <span className={[Classes.tag, Classes.tagTeal]}> */}
                     <Row className="mb-3">
                       {item.tags.slice(0, 2).map((tag) => {
-                        console.log(item.tags.length);
                         return (
                           <Col md="5">
                             <div className="filterContainer">{tag}</div>
@@ -69,7 +68,7 @@ function Cards({ data }) {
                         <h6>
                           {item.author.firstName + " " + item.author.lastName}
                         </h6>
-                        <small>{item.timeAgo || ""}</small>   
+                        <small>{item.timeAgo || ""}</small>
                       </div>
                     </div>
                   </div>

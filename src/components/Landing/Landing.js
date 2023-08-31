@@ -123,7 +123,6 @@ function Landing() {
     }
   }, [login_details]);
 
-  console.log(registered_user)
   useEffect(() => {
     if (registered_user.success) {
       setKey("home");

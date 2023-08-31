@@ -4,6 +4,7 @@ import blogType from "./BlogType";
 import ApiServices from "../services/apiServices";
 import axiosInstance from "@/shared/apiConstants";
 import { useRouter } from "next/router";
+import { useEffect, useRef } from "react";
 
 const services = new ApiServices();
 export const BlogContext = createContext({
@@ -12,8 +13,16 @@ export const BlogContext = createContext({
 
 const BlogProvider = ({ children }) => {
   const router = useRouter();
+  const tokenRef = useRef();
+  useEffect(() => {
+    axiosInstance.interceptors.request.use((config) => {
+      if (tokenRef.current) {
+        config.headers.Authorization = `Bearer ${tokenRef.current}`;
+      }
+      return config;
+    });
+  }, []); // Empty dependency array ensures this runs only once
   const handleApiResponse = (response) => {
-    console.log(response);
     if (
       response?.data &&
       response?.data.success === false &&
@@ -43,16 +52,18 @@ const BlogProvider = ({ children }) => {
     delete_blog,
     updated_posts,
   } = state;
+
   const fetchLoginDetails = async (payload) => {
     try {
       const response = await services.login(payload);
-      dispatchUserEntry(response);
+      await dispatchUserEntry(response);
       dispatch({
         type: blogType.FETCH_LOGIN_DETAILS,
         payload: response,
       });
+      return response;
     } catch (err) {
-      console.log(err.response);
+      console.log(err.response, "err in login");
       dispatch({
         type: blogType.FETCH_LOGIN_DETAILS,
         payload: err.response,
@@ -72,7 +83,9 @@ const BlogProvider = ({ children }) => {
         type: blogType.FETCH_ALL_POSTS,
         payload: response,
       });
+      return response;
     } catch (err) {
+      console.log(err.response, "err in fetch posts");
       handleApiResponse(err.response);
       dispatch({
         type: blogType.FETCH_ALL_POSTS,
@@ -89,6 +102,7 @@ const BlogProvider = ({ children }) => {
         payload: response,
       });
     } catch (err) {
+      console.log(err.response, "err in register");
       dispatch({
         type: blogType.REGISTER_USER,
         payload: err.response,
@@ -104,6 +118,7 @@ const BlogProvider = ({ children }) => {
         payload: response,
       });
     } catch (err) {
+      console.log(err.response, "err in fetch blog details");
       handleApiResponse(err.response);
       dispatch({
         type: blogType.FETCH_BLOG_DETAILS,
@@ -112,15 +127,12 @@ const BlogProvider = ({ children }) => {
     }
   };
 
-  const dispatchUserEntry = (response) => {
-    axiosInstance.interceptors.request.use((config) => {
-      const token = response.data.token;
-      config.headers.Authorization = token ? `Bearer ${token}` : "";
-      return config;
-    });
+  const dispatchUserEntry = async (response) => {
+    tokenRef.current = response.data.token;
     sessionStorage.setItem("token", JSON.stringify(response.data.token));
     sessionStorage.setItem("_uid", response.data.user._id);
-    dispatch({
+
+    return dispatch({
       type: blogType.FETCH_LOGIN_DETAILS,
       payload: response,
     });
@@ -144,6 +156,7 @@ const BlogProvider = ({ children }) => {
         payload: response,
       });
     } catch (err) {
+      console.log(err.response, "err in upload image");
       handleApiResponse(err.response);
       dispatch({
         type: blogType.UPLOAD_IMAGE,
@@ -163,6 +176,7 @@ const BlogProvider = ({ children }) => {
         payload: response,
       });
     } catch (err) {
+      console.log(err.response, "err in upload blog");
       handleApiResponse(err.response);
       dispatch({
         type: blogType.UPLOAD_BLOG,
@@ -178,6 +192,7 @@ const BlogProvider = ({ children }) => {
         payload: response,
       });
     } catch (err) {
+      console.log(err.response, "err in delete blog");
       handleApiResponse(err.response);
       dispatch({
         type: blogType.DELETE_BLOG,
@@ -207,6 +222,7 @@ const BlogProvider = ({ children }) => {
         payload: response,
       });
     } catch (err) {
+      console.log(err.response, "err in update blog");
       handleApiResponse(err.response);
       dispatch({
         type: blogType.UPLOAD_BLOG,

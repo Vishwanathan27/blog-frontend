@@ -60,7 +60,7 @@ function PostForm() {
       });
     }
   };
-  console.log(formData);
+
   const uploadDataHandler = () => {
     const newData = {
       content: formData.description,

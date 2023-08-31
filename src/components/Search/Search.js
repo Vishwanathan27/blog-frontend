@@ -38,7 +38,7 @@ function Search() {
             <div
               className={Classes.search_icon}
               onClick={() => {
-                console.log("hi");
+
               }}
             >
               <Image src="/search.svg" className={Classes.search_icon} />
