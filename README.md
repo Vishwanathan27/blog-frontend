@@ -7,6 +7,11 @@ Blogged FE is a Next.js based project for the blogging platform. This repository
 
 You can access the live version of the app [here](http://34.240.48.217).
 
+## Video Demo
+
+You can watch a demo video of the  app [here](https://youtu.be/dR-y_oV2V5w).
+
+
 ## Prerequisites
 
 Make sure you have the following installed:
