@@ -115,7 +115,14 @@ function Search() {
                   {tags.map((item, index) => {
                     return (
                       <Col md="12" key={index}>
-                        <div className="filterContainer ">{item.name}</div>
+                        <div
+                          className="filterContainer"
+                          onClick={() => {
+                            tagFilterHandler(item.name);
+                          }}
+                        >
+                          {item.name}
+                        </div>{" "}
                       </Col>
                     );
                   })}
