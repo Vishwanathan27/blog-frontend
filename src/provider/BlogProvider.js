@@ -111,13 +111,13 @@ const BlogProvider = ({ children }) => {
     try {
       const response = await services.register(payload);
       dispatch({
-        type: blogType.REGISTER_USER,
+        type: blogType.FETCH_LOGIN_DETAILS,
         payload: response,
       });
     } catch (err) {
       console.log(err.response, "err in register");
       dispatch({
-        type: blogType.REGISTER_USER,
+        type: blogType.FETCH_LOGIN_DETAILS,
         payload: err.response,
       });
     }
