@@ -17,8 +17,15 @@ const blogReducer = (state = INITIAL_STATE, action) => {
     case blogType.FETCH_ALL_POSTS:
       return {
         ...state,
-        posts: action.payload?.data,
+        posts: [...state.posts, ...action.payload?.data],
       };
+
+    case blogType.CLEAR_POSTS: {
+      return {
+        ...state,
+        posts: action.payload.data,
+      };
+    }
     case blogType.FETCH_LOGIN_DETAILS:
       return {
         ...state,

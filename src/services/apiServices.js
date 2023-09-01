@@ -13,8 +13,8 @@ class ApiService {
     const endpoint = "/private/posts";
     return axios.post(endpoint, payload);
   }
-  posts(page = 1, limit = 9, search = undefined) {
-    const endpoint = "private/posts";
+  posts(page, search, tags) {
+    const endpoint = `private/posts?page=${page}&limit=9&search=${search}&tags=${tags}`;
     return axios.get(endpoint);
   }
   getPostById(id) {

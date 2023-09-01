@@ -1,9 +1,8 @@
-import React, { useState, useContext, useEffect } from "react";
-import { Container, Row, Col, Form, Tab, Tabs, Button } from "react-bootstrap";
 import Classes from "./Landing.module.css";
+import React, { useState, useContext, useEffect } from "react";
+import { Button, Container, Col, Form, Row, Tab, Tabs } from "react-bootstrap";
 import { BlogContext } from "@/provider/BlogProvider";
 import { useRouter } from "next/router";
-import axiosInstance from "@/shared/apiConstants";
 
 function Landing() {
   const { login_details, fetchLoginDetails, registerUser, registered_user } =
@@ -36,7 +35,6 @@ function Landing() {
     email: "",
     password: "",
   });
-  // Registration handler function
   const [key, setKey] = useState("home");
   const registerHandler = () => {
     setPasswordMismatch(false);

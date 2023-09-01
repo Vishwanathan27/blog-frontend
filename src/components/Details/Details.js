@@ -1,25 +1,20 @@
-import React, { useState, useContext, useEffect } from "react";
-import { Container, Navbar, Image, Button, Row, Col } from "react-bootstrap";
 import Classes from "./Details.module.css";
-import { useRouter } from "../../../node_modules/next/router";
-import { BlogContext } from "@/provider/BlogProvider";
-import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import ReactModal from "react-modal";
+import Swal from "sweetalert2";
+import React, { useContext, useEffect } from "react";
+import { BlogContext } from "@/provider/BlogProvider";
+import { Container, Image,  } from "react-bootstrap";
+import { useRouter } from "../../../node_modules/next/router";
+import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 
 ReactModal.setAppElement("#__next");
 
-function Details(props) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
+function Details() {
   const router = useRouter();
-  const {
-    blog_details,
-    fetchBlogDetails,
-    deleteBlog,
-    delete_blog,
-    clearDelete,
-  } = useContext(BlogContext);
+  const { blog_details, fetchBlogDetails, deleteBlog } =
+    useContext(BlogContext);
   const data = blog_details?.data;
+
   useEffect(() => {
     if (router?.query?.id) {
       fetchBlogDetails(router.query.id);
@@ -28,10 +23,22 @@ function Details(props) {
 
   const deleteBlogHandler = () => {
     deleteBlog(data._id);
-    setIsModalOpen(false);
     router.push("/home");
   };
 
+  const deleteHandler = () => {
+    Swal.fire({
+      title: "Are you sure you want delete?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Yes",
+      cancelButtonText: "No",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteBlogHandler();
+      }
+    });
+  };
   return (
     <>
       {data && (
@@ -61,7 +68,7 @@ function Details(props) {
                 <AiFillDelete
                   size={24}
                   onClick={() => {
-                    setIsModalOpen(true);
+                    deleteHandler();
                   }}
                 />
               </div>
@@ -79,19 +86,6 @@ function Details(props) {
           </div>
         </Container>
       )}
-      <ReactModal
-        isOpen={isModalOpen}
-        onRequestClose={() => setIsModalOpen(false)}
-        className={Classes.modalContent}
-        overlayClassName={Classes.modalOverlay}
-      >
-        <h2>Are you sure?</h2>
-        <p>Do you really want to delete this blog post?</p>
-        <button className={Classes.buttonMargin} onClick={deleteBlogHandler}>
-          Delete
-        </button>
-        <button onClick={() => setIsModalOpen(false)}>Cancel</button>
-      </ReactModal>
     </>
   );
 }

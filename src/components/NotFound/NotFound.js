@@ -1,6 +1,6 @@
+import Classes from "./NotFound.module.css";
 import React from "react";
 import { useRouter } from "../../../node_modules/next/router";
-import Classes from "./NotFound.module.css";
 
 function NotFound() {
   const router = useRouter();

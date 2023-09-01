@@ -10,6 +10,13 @@ function Search() {
   const router = useRouter();
   const { posts, fetchAllPosts, tags } = useContext(BlogContext);
   const [dropDown, setDropDown] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedTag, setSelectedTag] = useState("");
+  const [pageNumber, setPageNumber] = useState(1);
+
+  const setPageNumberHandler = () => {
+    setPageNumber(pageNumber + 1);
+  };
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     if (token !== null) {
@@ -20,11 +27,22 @@ function Search() {
         return config;
       });
 
-      fetchAllPosts();
+      fetchAllPosts(pageNumber, searchTerm, selectedTag);
     } else {
       router.push("/login");
     }
   }, []);
+
+  const searchHandler = (keyword) => {
+    setPageNumber(1);
+    fetchAllPosts(1, keyword, selectedTag);
+  };
+  const tagFilterHandler = (filter) => {
+    setSelectedTag(filter);
+    setSearchTerm("");
+    setPageNumber(1);
+    fetchAllPosts(1, "", filter);
+  };
 
   return (
     <Container>
@@ -39,7 +57,7 @@ function Search() {
             <div
               className={Classes.search_icon}
               onClick={() => {
-
+                searchHandler(searchTerm);
               }}
             >
               <Image src="/search.svg" className={Classes.search_icon} />
@@ -48,18 +66,30 @@ function Search() {
               className={Classes.search_custom}
               type="text"
               placeholder="Search by tags, author name"
+              value={searchTerm}
               onFocus={(e) => {}}
-              onChange={(e) => {}}
-              onKeyDown={(e) => {}}
+              onChange={(e) => {
+                setSearchTerm(e.target.value);
+              }}
+              onKeyDown={(e) => {
+                searchHandler(e.target.value);
+              }}
             />
           </Form>
         </div>
         <div className={Classes.filter}>
           <Row>
-            {tags.slice(0, 5).map((item) => {
+            {tags.slice(0, 5).map((item, index) => {
               return (
-                <Col md="2">
-                  <div className="filterContainer">{item.name}</div>
+                <Col md="2" key={index}>
+                  <div
+                    className="filterContainer"
+                    onClick={() => {
+                      tagFilterHandler(item.name);
+                    }}
+                  >
+                    {item.name}
+                  </div>
                 </Col>
               );
             })}
@@ -82,9 +112,9 @@ function Search() {
             <div className={Classes.dropdownHolder}>
               <div className={Classes.filter}>
                 <Row>
-                  {tags.map((item) => {
+                  {tags.map((item, index) => {
                     return (
-                      <Col md="12">
+                      <Col md="12" key={index}>
                         <div className="filterContainer ">{item.name}</div>
                       </Col>
                     );
@@ -94,12 +124,18 @@ function Search() {
             </div>
           </div>
         )}
-        {!posts?.success ? (
+        {!posts?.length === 0 ? (
           <div className={Classes.loaderContainer}>
             <div className={Classes.loader}></div>
           </div>
         ) : (
-          <Cards data={posts.data} />
+          <Cards
+            data={posts}
+            currentPage={pageNumber}
+            pageNumberHandler={setPageNumberHandler}
+            filter={selectedTag}
+            search={searchTerm}
+          />
         )}
       </div>
     </Container>

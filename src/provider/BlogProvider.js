@@ -83,18 +83,26 @@ const BlogProvider = ({ children }) => {
       });
     }
   };
-
-  const fetchAllPosts = async (page, limit, search) => {
+  const clearPostsHandler = () => {
+    dispatch({
+      type: blogType.CLEAR_POSTS,
+      payload: { data: [] },
+    });
+  };
+  const fetchAllPosts = async (page, search, tags) => {
     try {
-      const response = await services.posts(page, limit);
+      const response = await services.posts(page, search, tags);
       const tagRes = await services.getTags();
+      if (page === 1) {
+        clearPostsHandler();
+      }
       dispatch({
         type: blogType.FETCH_TAGS,
         payload: tagRes,
       });
       dispatch({
         type: blogType.FETCH_ALL_POSTS,
-        payload: response,
+        payload: response.data,
       });
       return response;
     } catch (err) {
@@ -106,6 +114,16 @@ const BlogProvider = ({ children }) => {
       });
     }
   };
+
+  // const searchPosts = async (page, search, tags) => {
+  //   try {
+  //   } catch (err) {}
+  // };
+
+  // const filterByTags = async (page, tags, search) => {
+  //   try {
+  //   } catch (err) {}
+  // };
 
   const registerUser = async (payload) => {
     try {
@@ -256,24 +274,24 @@ const BlogProvider = ({ children }) => {
     <BlogContext.Provider
       value={{
         ...state,
+        clearImgData,
+        deleteBlog,
         fetchLoginDetails,
-        login_details,
-        fetchAllPosts,
-        posts,
         fetchBlogDetails,
+        fetchAllPosts,
         registerUser,
+        uploadImage,
+        uploadBlog,
+        updatePost,
+        login_details,
+        posts,
         blog_details,
         img_data,
-        uploadImage,
         tags,
         registered_user,
-        uploadBlog,
         upload_blog,
         delete_blog,
-        deleteBlog,
-        clearImgData,
         updated_posts,
-        updatePost,
       }}
     >
       {children}

@@ -1,15 +1,9 @@
-import React, { useState, useContext, useEffect } from "react";
-import { Container, Form, Button, Image, Row, Col } from "react-bootstrap";
 import Classes from "./EditForm.module.css";
-import dynamic from "next/dynamic";
+import React, { useState, useContext, useEffect } from "react";
 import { BlogContext } from "@/provider/BlogProvider";
+import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
 import { useRouter } from "../../../../node_modules/next/router";
 
-const Editor = dynamic(
-  () => import("react-draft-wysiwyg").then((mod) => mod.Editor),
-  { ssr: false }
-);
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 function PostForm() {
   const router = useRouter();
   const { img_data, uploadImage, blog_details, fetchBlogDetails, updatePost } =

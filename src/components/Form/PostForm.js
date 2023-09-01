@@ -4,12 +4,10 @@ import Classes from "./PostForm.module.css";
 import { BlogContext } from "@/provider/BlogProvider";
 import { useRouter } from "../../../node_modules/next/router";
 
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 function PostForm() {
   const router = useRouter();
   const { img_data, uploadImage, uploadBlog, upload_blog, clearImgData } =
     useContext(BlogContext);
-  // const data = blog_details?.data;
   const [tags, setTags] = useState([]);
   const [tagName, setTagName] = useState("");
   const [formData, setFormData] = useState({
