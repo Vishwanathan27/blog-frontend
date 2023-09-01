@@ -38,5 +38,3 @@ Follow these steps to set up the project for local development:
 4. **Open the Source Code and Start Editing!**
 
     The site is now running at `http://localhost:3000`!
-
-Code is live at [http://34.240.48.217](http://34.240.48.217)
