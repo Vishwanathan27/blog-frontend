@@ -2,7 +2,6 @@
 
 Blogged FE is a Next.js based project for the blogging platform. This repository contains the frontend codebase of the platform.
 
-![Project Banner](https://blogged.s3.amazonaws.com/logo.png)
 
 ## Live Demo
 
