@@ -205,6 +205,7 @@ const BlogProvider = ({ children }) => {
   };
 
   const uploadBlog = async (userData) => {
+    //Best way to upload is by getting signature api and uploading from backend instead of exposing credentials in FE.
     try {
       let newData = {
         author: sessionStorage.getItem("_uid"),

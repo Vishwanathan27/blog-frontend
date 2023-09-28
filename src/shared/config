@@ -1,8 +1,8 @@
 const awsConfig = {
-    REACT_APP_AWS_ACCESS_KEY: "AKIATQJZIBXHVW2UZJXH",
-    REACT_APP_AWS_SECRET_KEY: "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",
-    REACT_APP_AWS_REGION: "us-east-1",
-    REACT_APP_S3_BUCKET_NAME: "blogged",
+    REACT_APP_AWS_ACCESS_KEY: "changeme",
+    REACT_APP_AWS_SECRET_KEY: "changeme",
+    REACT_APP_AWS_REGION: "changeme",
+    REACT_APP_S3_BUCKET_NAME: "changeme",
 }
 
 export default awsConfig;
